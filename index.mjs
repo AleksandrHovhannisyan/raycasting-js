@@ -39,7 +39,7 @@ function Draw() {
   });
 }
 
-function CheckUserInput() {
+function HandleInput() {
   if (isKeyDown(Input.MOVE_UP)) {
     player.moveBy(0, -1);
   }
@@ -63,7 +63,7 @@ function CheckUserInput() {
 
 function Update() {
   requestAnimationFrame(() => {
-    CheckUserInput();
+    HandleInput();
     Draw();
     Update();
   });
