@@ -12,18 +12,11 @@ let canvas;
 let player;
 /** @type {Wall[]} */
 let walls;
-/** @type {Vector} */
-let mouse = new Vector();
 
 function Init() {
   canvas = new Canvas(Screen.WIDTH, Screen.HEIGHT);
   player = new Player(new Vector(canvas.width / 2, canvas.height / 2));
   document.body.appendChild(canvas.canvas);
-  // document.addEventListener('mousemove', (e) => {
-  //   const canvasRect = canvas.getBoundingClientRect();
-  //   mouse.x = e.clientX - canvasRect.x;
-  //   mouse.y = e.clientY - canvasRect.y;
-  // });
 
   walls = Array.from({ length: 5 }, () => {
     const x1 = Math.random() * canvas.width;
@@ -55,7 +48,6 @@ function Init() {
 }
 
 function Draw() {
-  console.log(mouse.x, mouse.y);
   canvas.clear();
   canvas.fill(Color.WHITE);
   walls.forEach((wall) => wall.draw(canvas));
