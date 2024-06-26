@@ -1,15 +1,14 @@
 import Camera from "./Camera.mjs";
-import { Color, FIELD_OF_VIEW } from "./constants.mjs";
+import { Color } from "./constants.mjs";
 
 export default class Player {
   /** 
-   * @param {import("./Vector.mjs").default} position
-   * @param {number} speed
+   * @param {{ position: import("./Vector.mjs").default; speed: number; fovDegrees: number }}
    */
-  constructor(position, speed = 1) {
+  constructor({ position, speed = 1, fovDegrees }) {
     this.position = position;
     this.speed = speed;
-    this.camera = new Camera(position, FIELD_OF_VIEW);
+    this.camera = new Camera(position, fovDegrees);
   }
 
   /** Moves by the specified x and y deltas. 
@@ -17,8 +16,8 @@ export default class Player {
    * @param {number} dy
   */
   moveBy(dx, dy) {
-    this.position.x += dx;
-    this.position.y += dy;
+    this.position.x += dx * this.speed;
+    this.position.y += dy * this.speed;
   }
 
   /**

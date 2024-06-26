@@ -9,5 +9,3 @@ export const Color = {
   WHITE: "white",
   YELLOW: "yellow",
 };
-
-export const FIELD_OF_VIEW = 90;
