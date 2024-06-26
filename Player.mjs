@@ -12,6 +12,15 @@ export default class Player {
     this.camera = new Camera(position, FIELD_OF_VIEW);
   }
 
+  /** Moves by the specified x and y deltas. 
+   * @param {number} dx
+   * @param {number} dy
+  */
+  moveBy(dx, dy) {
+    this.position.x += dx;
+    this.position.y += dy;
+  }
+
   /**
    * 
    * @param {(import("./Wall.mjs").default)[]} walls 

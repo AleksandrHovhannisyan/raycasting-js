@@ -41,16 +41,16 @@ function Draw() {
 
 function CheckUserInput() {
   if (isKeyDown(Input.MOVE_UP)) {
-    player.position.y = player.position.y - 1;
+    player.moveBy(0, -1);
   }
   if (isKeyDown(Input.MOVE_DOWN)) {
-    player.position.y = player.position.y + 1;
+    player.moveBy(0, 1);
   }
   if (isKeyDown(Input.MOVE_RIGHT)) {
-    player.position.x = player.position.x + 1;
+    player.moveBy(1, 0);
   }
   if (isKeyDown(Input.MOVE_LEFT)) {
-    player.position.x = player.position.x - 1;
+    player.moveBy(-1, 0);
   }
   // FIXME: not working
   if (isKeyDown(Input.TURN_LEFT)) {
