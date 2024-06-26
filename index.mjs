@@ -1,7 +1,7 @@
 import Canvas from "./Canvas.mjs";
 import Player from "./Player.mjs";
 import Vector from "./Vector.mjs";
-import Wall from "./Wall.mjs";
+import Wall, { createWalls } from "./Wall.mjs";
 import { Screen, Color } from "./constants.mjs";
 import { Input, isKeyDown } from "./input.mjs";
 import { toRadians } from "./utils.mjs";
@@ -16,35 +16,8 @@ let walls;
 function Init() {
   canvas = new Canvas(Screen.WIDTH, Screen.HEIGHT);
   player = new Player(new Vector(canvas.width / 2, canvas.height / 2));
+  walls = createWalls(5, canvas.width, canvas.height);
   document.body.appendChild(canvas.canvas);
-
-  walls = Array.from({ length: 5 }, () => {
-    const x1 = Math.random() * canvas.width;
-    const y1 = Math.random() * canvas.height;
-    const x2 = Math.random() * canvas.width;
-    const y2 = Math.random() * canvas.height;
-    return new Wall(new Vector(x1, y1), new Vector(x2, y2));
-  });
-  const wallTop = new Wall(
-    new Vector(Screen.PADDING, Screen.PADDING),
-    new Vector(Screen.WIDTH - Screen.PADDING, Screen.PADDING)
-  );
-  const wallRight = new Wall(
-    new Vector(Screen.WIDTH - Screen.PADDING, Screen.PADDING),
-    new Vector(Screen.WIDTH - Screen.PADDING, Screen.HEIGHT - Screen.PADDING)
-  );
-  const wallBottom = new Wall(
-    new Vector(Screen.WIDTH - Screen.PADDING, Screen.HEIGHT - Screen.PADDING),
-    new Vector(Screen.PADDING, Screen.HEIGHT - Screen.PADDING)
-  );
-  const wallLeft = new Wall(
-    new Vector(Screen.PADDING, Screen.HEIGHT - Screen.PADDING),
-    new Vector(Screen.PADDING, Screen.PADDING)
-  );
-  walls.push(wallTop);
-  walls.push(wallRight);
-  walls.push(wallBottom);
-  walls.push(wallLeft);
 }
 
 function Draw() {
