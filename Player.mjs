@@ -35,7 +35,7 @@ export default class Player {
     canvas.circle({
       x: this.position.x,
       y: this.position.y,
-      radius: 2,
+      radius: 4,
       color: Color.BLACK,
     });
   }

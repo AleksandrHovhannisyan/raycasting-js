@@ -58,10 +58,10 @@ function HandleInput() {
   }
   // FIXME: not working
   if (isKeyDown(Input.TURN_LEFT)) {
-    player.camera.turnByRadians(toRadians(1));
+    player.camera.turnByRadians(toRadians(4));
   }
   if (isKeyDown(Input.TURN_RIGHT)) {
-    player.camera.turnByRadians(toRadians(-1));
+    player.camera.turnByRadians(toRadians(-4));
   }
 }
 
