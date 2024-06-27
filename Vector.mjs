@@ -8,11 +8,19 @@ export default class Vector {
     return Math.sqrt(this.x ** 2 + this.y ** 2);
   }
 
-  /** Normalizes this vector, turning it into a unit vector (i.e. of length `1`). */
-  normalize() {
-    const length = this.length;
-    this.x /= length;
-    this.y /= length;
+  /**
+   * @param {number} scalar 
+   */
+  scaleBy(scalar) {
+    this.x *= scalar;
+    this.y *= scalar;
+  }
+
+  /** Returns the result of normalizing this vector (i.e. making it a unit vector of length `1`). */
+  normalized() {
+    const unitVector = new Vector(this.x, this.y);
+    unitVector.scaleBy(1 / unitVector.length);
+    return unitVector;
   }
 
   /**

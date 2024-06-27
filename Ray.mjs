@@ -16,9 +16,7 @@ export default class Ray {
 
   /** Returns a unit vector representing this ray's direction. */
   get direction() {
-    const vector = Vector.fromAngle(this.angle);
-    vector.normalize();
-    return vector;
+    return Vector.fromAngle(this.angle).normalized();
   }
 
   /**
