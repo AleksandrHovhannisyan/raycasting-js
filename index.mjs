@@ -27,8 +27,6 @@ function Init() {
 function Draw() {
   canvas.clear();
   canvas.fill(Color.WHITE);
-  walls.forEach((wall) => wall.draw(canvas));
-  player.draw(canvas);
   const intersections = player.see(walls);
   intersections.forEach((intersection) => {
     if (intersection) {
@@ -41,6 +39,9 @@ function Draw() {
       });
     }
   });
+  // Draw these as the last layer
+  walls.forEach((wall) => wall.draw(canvas));
+  player.draw(canvas);
 }
 
 function HandleInput() {
