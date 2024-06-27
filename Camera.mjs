@@ -15,7 +15,7 @@ export default class Camera {
   }
 
   createRays(numRays) {
-    const degreesPerRay = this.fov / numRays;
+    const degreesPerRay = this.fov / (numRays - 1);
     const rayAngleStart = this.angle - this.fov / 2;
     this.rays = Array.from(
       { length: numRays },
