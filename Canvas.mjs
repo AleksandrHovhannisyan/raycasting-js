@@ -1,3 +1,4 @@
+// TODO: use custom element
 export default class Canvas {
   /**
    * @param {number} width
@@ -16,11 +17,6 @@ export default class Canvas {
 
   get height() {
     return this.canvas.height;
-  }
-
-  // TODO: use custom element
-  getBoundingClientRect() {
-    return this.canvas.getBoundingClientRect();
   }
 
   /** Clears all drawings from the canvas. */

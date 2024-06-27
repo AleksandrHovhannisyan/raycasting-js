@@ -56,7 +56,6 @@ function HandleInput() {
   if (isKeyDown(Input.MOVE_LEFT)) {
     player.moveBy(-1, 0);
   }
-  // FIXME: not working
   if (isKeyDown(Input.TURN_LEFT)) {
     player.camera.turnByRadians(toRadians(4));
   }
