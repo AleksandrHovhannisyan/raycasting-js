@@ -47,17 +47,10 @@ function Draw() {
 
 function HandleInput() {
   if (isKeyDown(Input.MOVE_FORWARD)) {
-    console.log('moving forward in direction:', player.direction)
     player.move(player.direction);
   }
   if (isKeyDown(Input.MOVE_BACKWARD)) {
     player.move(player.direction.scaled(-1));
-  }
-  if (isKeyDown(Input.MOVE_RIGHT)) {
-    // player.move(1, 0);
-  }
-  if (isKeyDown(Input.MOVE_LEFT)) {
-    // player.move(-1, 0);
   }
   if (isKeyDown(Input.TURN_LEFT)) {
     player.turnByRadians(toRadians(-4));

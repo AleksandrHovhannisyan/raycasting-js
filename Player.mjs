@@ -23,10 +23,8 @@ export default class Player {
    * @param {number} angleDeltaRadians 
    */
   turnByRadians(angleDeltaRadians) {
-    console.log(`Player turning from ${toDegrees(this.angle)} to ${toDegrees(angleDeltaRadians + this.angle)}`)
     this.angle += angleDeltaRadians;
     this.camera.turnByRadians(angleDeltaRadians);
-    debugger;
   }
 
   /** Moves by the specified x and y deltas. 

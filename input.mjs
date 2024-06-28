@@ -18,8 +18,6 @@ export const isKeyDown = makeGlobalKeyDownListener();
 export const Input = {
   MOVE_FORWARD: "w",
   MOVE_BACKWARD: "s",
-  MOVE_RIGHT: "d",
-  MOVE_LEFT: "a",
-  TURN_LEFT: 'ArrowLeft',
-  TURN_RIGHT: 'ArrowRight',
+  TURN_LEFT: 'a',
+  TURN_RIGHT: 'd',
 };

@@ -23,7 +23,7 @@ export default class Vector {
     const unitVector = new Vector(this.x, this.y);
     return unitVector.scaled(1 / unitVector.length);
   }
-
+  
   /**
    * Returns a new vector constructed from the given angle.
    * @param {number} angleRadians
