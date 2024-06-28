@@ -14,7 +14,7 @@ export default class Ray {
     this.angle = angleRadians;
   }
 
-  /** Returns a unit vector representing this ray's direction. */
+  /** A unit vector representing this ray's direction. */
   get direction() {
     return Vector.fromAngle(this.angle).normalized();
   }

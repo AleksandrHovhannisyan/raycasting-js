@@ -43,11 +43,11 @@ export default class Canvas {
   }
 
   /** Draws a line on the canvas from `(x1, y1)` to `(x2, y2)`.
-   * @param {{ x1: number; y1: number; x2: number; y2: number; color: string; width: number }}
+   * @param {{ x1: number; y1: number; x2: number; y2: number; color: string; strokeWidth: number }}
    */
-  line({ x1, y1, x2, y2, color, width = 1 }) {
+  line({ x1, y1, x2, y2, color, strokeWidth = 1 }) {
     this.context.strokeStyle = color;
-    this.context.lineWidth = width;
+    this.context.lineWidth = strokeWidth;
     this.context.beginPath();
     this.context.moveTo(x1, y1);
     this.context.lineTo(x2, y2);

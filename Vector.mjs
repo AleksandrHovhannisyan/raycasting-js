@@ -11,16 +11,17 @@ export default class Vector {
   /**
    * @param {number} scalar 
    */
-  scaleBy(scalar) {
-    this.x *= scalar;
-    this.y *= scalar;
+  scaled(scalar) {
+    const scaled = new Vector(this.x, this.y);
+    scaled.x *= scalar;
+    scaled.y *= scalar;
+    return scaled;
   }
 
   /** Returns the result of normalizing this vector (i.e. making it a unit vector of length `1`). */
   normalized() {
     const unitVector = new Vector(this.x, this.y);
-    unitVector.scaleBy(1 / unitVector.length);
-    return unitVector;
+    return unitVector.scaled(1 / unitVector.length);
   }
 
   /**

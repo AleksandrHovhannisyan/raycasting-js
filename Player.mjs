@@ -1,23 +1,40 @@
 import Camera from "./Camera.mjs";
+import Vector from "./Vector.mjs";
 import { Color } from "./constants.mjs";
+import { toDegrees } from "./utils.mjs";
 
 export default class Player {
   /** 
-   * @param {{ position: import("./Vector.mjs").default; speed: number; fovDegrees: number }}
+   * @param {{ position: import("./Vector.mjs").default; speed: number; angle?: number; fovDegrees: number }}
    */
-  constructor({ position, speed = 1, fovDegrees }) {
+  constructor({ position, speed = 1, angle = 0, fovDegrees }) {
     this.position = position;
     this.speed = speed;
-    this.camera = new Camera(position, fovDegrees);
+    this.angle = angle;
+    this.camera = new Camera({ position, angle, fovDegrees });
+  }
+
+  /** A unit vector representing this player's direction/heading. */
+  get direction() {
+    return Vector.fromAngle(this.angle).normalized();
+  }
+
+  /**
+   * @param {number} angleDeltaRadians 
+   */
+  turnByRadians(angleDeltaRadians) {
+    console.log(`Player turning from ${toDegrees(this.angle)} to ${toDegrees(angleDeltaRadians + this.angle)}`)
+    this.angle += angleDeltaRadians;
+    this.camera.turnByRadians(angleDeltaRadians);
+    debugger;
   }
 
   /** Moves by the specified x and y deltas. 
-   * @param {number} dx
-   * @param {number} dy
+   * @param {import("./Vector.mjs").default} direction
   */
-  moveBy(dx, dy) {
-    this.position.x += dx * this.speed;
-    this.position.y += dy * this.speed;
+  move(direction) {
+    this.position.x += direction.x * this.speed;
+    this.position.y += direction.y * this.speed;
   }
 
   /**
@@ -38,5 +55,13 @@ export default class Player {
       radius: 4,
       color: Color.BLACK,
     });
+    canvas.line({
+      x1: this.position.x,
+      y1: this.position.y,
+      x2: this.position.x + this.direction.x * 20,
+      y2: this.position.y + this.direction.y * 20,
+      color: Color.BLACK,
+      strokeWidth: 2,
+    })
   }
 }

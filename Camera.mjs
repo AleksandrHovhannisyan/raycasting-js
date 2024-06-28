@@ -4,12 +4,11 @@ import { toRadians } from "./utils.mjs";
 
 export default class Camera {
   /**
-   * @param {import("./Vector.mjs").default} position
-   * @param {number} fovDegrees
+   * @param {{ position: import("./Vector.mjs").default; fovDegrees: number; angle?: number; }}
    */
-  constructor(position, fovDegrees) {
+  constructor({ position, fovDegrees, angle = 0 }) {
     this.position = position;
-    this.angle = 0;
+    this.angle = angle;
     this.fov = fovDegrees;
     this.createRays(Screen.WIDTH);
   }
@@ -30,7 +29,8 @@ export default class Camera {
    */
   turnByRadians(angleDeltaRadians) {
     this.angle += angleDeltaRadians;
-    this.rays.forEach((ray) => ray.setAngle(ray.angle + angleDeltaRadians));
+    // TODO: figure out why I have to do -angleDeltaRadians instead of +
+    this.rays.forEach((ray) => ray.setAngle(ray.angle - angleDeltaRadians));
   }
 
   /**
