@@ -61,8 +61,10 @@ function Draw() {
         y1,
         x2: xCoordinate,
         y2,
-        // FIXME: interpolate color smoothly, idk what I'm doing here lol
-        color: distance > 50 ? `hsl(0, 0%, ${scene3D.height / (distance * 1.2) * 100}%)` : Color.WHITE,
+        // FIXME: is there a better way of interpolating the color here?
+        // Basic idea: further away = darker. Closer = lighter. Max distance is scene3D.height (minus a few pixels maybe for the walls). So at that distance,
+        // the lightness should be < 100%. Hence divide scene3D.height by distance scaled by some arbitrary multiplier.
+        color: `hsl(0, 0%, ${scene3D.height / (distance * 1.2) * 100}%)`,
       });
     }
   });
