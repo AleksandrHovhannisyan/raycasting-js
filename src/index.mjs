@@ -53,7 +53,7 @@ function Draw() {
         color: Color.YELLOW,
       });
       // 3D: at this vertical slice of the screen, draw a scaled line representing that wall
-      const height = scene3D.height / distance * 20;
+      const height = scene3D.height / distance * 75; // FIXME: arbitrary constant of 75
       const y1 = (scene3D.height - height) / 2;
       const y2 = y1 + height;
       scene3D.line({
@@ -61,7 +61,8 @@ function Draw() {
         y1,
         x2: xCoordinate,
         y2,
-        color: Color.WHITE,
+        // FIXME: interpolate color smoothly, idk what I'm doing here lol
+        color: distance > 50 ? `hsl(0, 0%, ${scene3D.height / (distance * 1.2) * 100}%)` : Color.WHITE,
       });
     }
   });
