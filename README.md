@@ -11,6 +11,10 @@ Resources/references:
 - [Coding Challenge #145: 2D Raycasting ](https://www.youtube.com/watch?v=TOEi6T2mtHo)
 - [Coding Challenge #146: Rendering Raycasting ](https://www.youtube.com/watch?v=vYgIKn7iDH8)
 
+Inspired by one of [tsoding](https://www.twitch.tv/tsoding)'s streams where he implemented a 3D raycaster with canvas:
+
+- [https://github.com/tsoding/raycasting](https://github.com/tsoding/raycasting)
+
 ## Running Locally
 
 - Clone the repo.
