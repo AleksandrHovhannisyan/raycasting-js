@@ -24,7 +24,7 @@ function Init() {
     camera: new Camera({
       position: playerPosition,
       direction: new Vector(1, -1),
-      fovDegrees: 60,
+      fov: toRadians(60),
     })
   });
   walls = createWalls(5, canvas.width, canvas.height);

@@ -1,17 +1,22 @@
 import Ray from "./Ray.mjs";
 import Vector from "./Vector.mjs";
 import { Screen } from "./constants.mjs";
-import { toRadians } from "./utils.mjs";
+
+/**
+ * @typedef CameraProps
+ * @property {Vector} position The camera's position in world coordinates.
+ * @property {number} fov The field of view, in radians.
+ * @property {Vector} direction The direction the camera is facing.
+ */
 
 export default class Camera {
-  // TODO: accept fov in radians to keep everything in radians, for consistency
   /**
-   * @param {{ position: Vector; fovDegrees: number; direction: Vector; }}
+   * @param {CameraProps}
    */
-  constructor({ position, fovDegrees, direction }) {
+  constructor({ position, fov, direction }) {
     this.position = position;
     this.direction = direction;
-    this.fov = fovDegrees;
+    this.fov = fov;
     this.createRays(Screen.WIDTH);
   }
 
@@ -20,8 +25,8 @@ export default class Camera {
    * @param {number} numRays 
    */
   createRays(numRays) {
-    const radiansPerRay = toRadians(this.fov / (numRays - 1));
-    const rayAngleStartRadians = this.direction.angle - toRadians(this.fov / 2);
+    const radiansPerRay = this.fov / (numRays - 1);
+    const rayAngleStartRadians = this.direction.angle - this.fov / 2;
     this.rays = Array.from(
       { length: numRays },
       (_, index) => {
