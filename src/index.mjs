@@ -8,15 +8,18 @@ import { Input, isKeyDown } from "./lib/input.mjs";
 import { toRadians } from "./lib/utils.mjs";
 
 /** @type {Canvas} */
-let canvas;
+let scene2D;
+/** @type {Canvas} */
+let scene3D;
 /** @type {Player} */
 let player;
 /** @type {Wall[]} */
 let walls;
 
 function Init() {
-  canvas = new Canvas(Screen.WIDTH, Screen.HEIGHT);
-  const playerPosition = new Vector(canvas.width / 2, canvas.height / 2);
+  scene2D = new Canvas(Screen.WIDTH, Screen.HEIGHT);
+  scene3D = new Canvas(Screen.WIDTH, Screen.HEIGHT);
+  const playerPosition = new Vector(scene2D.width / 2, scene2D.height / 2);
   player = new Player({
     position: playerPosition,
     radius: 4,
@@ -25,30 +28,46 @@ function Init() {
       position: playerPosition,
       direction: new Vector(1, -1),
       fov: toRadians(60),
-    })
+    }),
   });
-  walls = createWalls(5, canvas.width, canvas.height);
-  document.body.appendChild(canvas.canvas);
+  walls = createWalls(5, scene2D.width, scene2D.height);
+  document.querySelector('#twod').appendChild(scene2D.canvas);
+  document.querySelector('#threed').appendChild(scene3D.canvas);
 }
 
 function Draw() {
-  canvas.clear();
-  canvas.fill(Color.WHITE);
-  const intersections = player.see(walls);
-  intersections.forEach((intersection) => {
+  scene2D.clear();
+  scene3D.clear();
+  scene2D.fill(Color.WHITE);
+  scene3D.fill(Color.BLACK);
+
+  const scene = player.see(walls);
+  scene.forEach(({ intersection, distance }, xCoordinate) => {
     if (intersection) {
-      canvas.line({
+      // 2D: Draw a line for the ray from player camera to the point of intersection on the nearest wall
+      scene2D.line({
         x1: player.camera.position.x,
         y1: player.camera.position.y,
         x2: intersection.x,
         y2: intersection.y,
         color: Color.YELLOW,
       });
+      // 3D: at this vertical slice of the screen, draw a scaled line representing that wall
+      const height = scene3D.height / distance * 20;
+      const y1 = (scene3D.height - height) / 2;
+      const y2 = y1 + height;
+      scene3D.line({
+        x1: xCoordinate,
+        y1,
+        x2: xCoordinate,
+        y2,
+        color: Color.WHITE,
+      });
     }
   });
   // Draw these as the last layer
-  walls.forEach((wall) => wall.draw(canvas));
-  player.draw(canvas);
+  walls.forEach((wall) => wall.draw(scene2D));
+  player.draw(scene2D);
 }
 
 function HandleInput() {

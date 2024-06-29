@@ -68,7 +68,7 @@ export default class Camera {
         }
       });
 
-      return closestIntersection;
+      return { intersection: closestIntersection, distance: shortestDistance };
     });
   }
 }

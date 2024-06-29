@@ -51,7 +51,7 @@ export default class Ray {
       const intersection = new Vector();
       intersection.x = x1 + t * (x2 - x1);
       intersection.y = y1 + t * (y2 - y1);
-      return { intersection: intersection, distance: u };
+      return { intersection, distance: u };
     }
   }
 }
