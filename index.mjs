@@ -17,6 +17,7 @@ function Init() {
   canvas = new Canvas(Screen.WIDTH, Screen.HEIGHT);
   player = new Player({
     position: new Vector(canvas.width / 2, canvas.height / 2),
+    radius: 4,
     speed: 2,
     fovDegrees: 60,
     direction: new Vector(1, -1),

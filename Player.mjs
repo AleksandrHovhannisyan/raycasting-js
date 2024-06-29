@@ -1,13 +1,15 @@
 import Camera from "./Camera.mjs";
 import Vector from "./Vector.mjs";
-import { Color } from "./constants.mjs";
+import { Color, Screen } from "./constants.mjs";
+import { clamp } from "./utils.mjs";
 
 export default class Player {
   /**
-   * @param {{ position: Vector; speed: number; direction?: Vector; fovDegrees: number }}
+   * @param {{ position: Vector; radius: number; speed: number; direction?: Vector; fovDegrees: number }}
    */
-  constructor({ position, speed = 1, direction, fovDegrees }) {
+  constructor({ position, radius, speed = 1, direction, fovDegrees }) {
     this.position = position;
+    this.radius = radius;
     this.speed = speed;
     this.direction = direction.normalized() ?? new Vector(1, 0);
     // TODO: Maybe the player constructor should accept a camera object already constructed?
@@ -33,6 +35,8 @@ export default class Player {
   move(direction) {
     this.position.x += direction.x * this.speed;
     this.position.y += direction.y * this.speed;
+    this.position.x = clamp({ value: this.position.x, min: this.radius, max: Screen.WIDTH - this.radius });
+    this.position.y = clamp({ value: this.position.y, min: this.radius, max: Screen.HEIGHT - this.radius });
   }
 
   /**
@@ -49,7 +53,7 @@ export default class Player {
     canvas.circle({
       x: this.position.x,
       y: this.position.y,
-      radius: 4,
+      radius: this.radius,
       color: Color.BLACK,
     });
     canvas.line({
