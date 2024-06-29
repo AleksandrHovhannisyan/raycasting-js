@@ -1,7 +1,7 @@
 import Camera from "./Camera.mjs";
-import Vector from "./Vector.mjs";
-import { Color, Screen } from "./constants.mjs";
-import { clamp } from "./utils.mjs";
+import Vector from "../lib/Vector.mjs";
+import { Color, Screen } from "../lib/constants.mjs";
+import { clamp } from "../lib/utils.mjs";
 
 export default class Player {
   /**

@@ -1,5 +1,5 @@
-import Vector from "./Vector.mjs";
-import { Color, Screen } from "./constants.mjs";
+import Vector from "../lib/Vector.mjs";
+import { Color, Screen } from "../lib/constants.mjs";
 
 export default class Wall {
   /**

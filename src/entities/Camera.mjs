@@ -1,6 +1,6 @@
-import Ray from "./Ray.mjs";
-import Vector from "./Vector.mjs";
-import { Screen } from "./constants.mjs";
+import Ray from "../lib/Ray.mjs";
+import Vector from "../lib/Vector.mjs";
+import { Screen } from "../lib/constants.mjs";
 
 /**
  * @typedef CameraProps

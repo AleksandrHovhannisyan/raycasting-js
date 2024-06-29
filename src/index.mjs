@@ -1,11 +1,11 @@
-import Camera from "./Camera.mjs";
-import Canvas from "./Canvas.mjs";
-import Player from "./Player.mjs";
-import Vector from "./Vector.mjs";
-import Wall, { createWalls } from "./Wall.mjs";
-import { Screen, Color } from "./constants.mjs";
-import { Input, isKeyDown } from "./input.mjs";
-import { toRadians } from "./utils.mjs";
+import Camera from "./entities/Camera.mjs";
+import Canvas from "./entities/Canvas.mjs";
+import Player from "./entities/Player.mjs";
+import Wall, { createWalls } from "./entities/Wall.mjs";
+import Vector from "./lib/Vector.mjs";
+import { Screen, Color } from "./lib/constants.mjs";
+import { Input, isKeyDown } from "./lib/input.mjs";
+import { toRadians } from "./lib/utils.mjs";
 
 /** @type {Canvas} */
 let canvas;
