@@ -1,43 +1,42 @@
 import Camera from "./Camera.mjs";
 import Vector from "./Vector.mjs";
 import { Color } from "./constants.mjs";
-import { toDegrees } from "./utils.mjs";
 
 export default class Player {
-  /** 
-   * @param {{ position: import("./Vector.mjs").default; speed: number; angle?: number; fovDegrees: number }}
+  /**
+   * @param {{ position: Vector; speed: number; direction?: Vector; fovDegrees: number }}
    */
-  constructor({ position, speed = 1, angle = 0, fovDegrees }) {
+  constructor({ position, speed = 1, direction, fovDegrees }) {
     this.position = position;
     this.speed = speed;
-    this.angle = angle;
-    this.camera = new Camera({ position, angle, fovDegrees });
-  }
-
-  /** A unit vector representing this player's direction/heading. */
-  get direction() {
-    return Vector.fromAngle(this.angle).normalized();
+    this.direction = direction.normalized() ?? new Vector(1, 0);
+    // TODO: Maybe the player constructor should accept a camera object already constructed?
+    this.camera = new Camera({
+      position: this.position,
+      direction: this.direction,
+      fovDegrees,
+    });
   }
 
   /**
-   * @param {number} angleDeltaRadians 
+   * Rotates this player by the given change in angle, in radians.
+   * @param {number} angleDeltaRadians
    */
-  turnByRadians(angleDeltaRadians) {
-    this.angle += angleDeltaRadians;
-    this.camera.turnByRadians(angleDeltaRadians);
+  rotate(angleDeltaRadians) {
+    this.direction = this.direction.rotated(angleDeltaRadians);
+    this.camera.rotate(angleDeltaRadians);
   }
 
-  /** Moves by the specified x and y deltas. 
-   * @param {import("./Vector.mjs").default} direction
-  */
+  /** Moves the player at its current speed in the the specified direction.
+   * @param {Vector} direction
+   */
   move(direction) {
     this.position.x += direction.x * this.speed;
     this.position.y += direction.y * this.speed;
   }
 
   /**
-   * 
-   * @param {(import("./Wall.mjs").default)[]} walls 
+   * @param {(import("./Wall.mjs").default)[]} walls
    */
   see(walls) {
     return this.camera.cast(walls);
@@ -60,6 +59,6 @@ export default class Player {
       y2: this.position.y + this.direction.y * 20,
       color: Color.BLACK,
       strokeWidth: 2,
-    })
+    });
   }
 }

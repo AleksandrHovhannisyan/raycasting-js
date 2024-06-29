@@ -1,22 +1,21 @@
 import Vector from "./Vector.mjs";
 
 export default class Ray {
-  constructor(position, angleRadians) {
+  /**
+   * @param {Vector} position 
+   * @param {Vector} direction 
+   */
+  constructor(position, direction) {
     this.position = position;
-    this.setAngle(angleRadians);
+    this.direction = direction
   }
 
   /**
+   * Rotates this ray by the given change in angle, in radians.
    * @param {number} angleRadians 
    */
-  setAngle(angleRadians) {
-    /** This ray's angle, in radians, relative to horizontal baseline. */
-    this.angle = angleRadians;
-  }
-
-  /** A unit vector representing this ray's direction. */
-  get direction() {
-    return Vector.fromAngle(this.angle).normalized();
+  rotate(angleDeltaRadians) {
+    this.direction = this.direction.rotated(angleDeltaRadians);
   }
 
   /**

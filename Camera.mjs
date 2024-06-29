@@ -1,36 +1,44 @@
 import Ray from "./Ray.mjs";
+import Vector from "./Vector.mjs";
 import { Screen } from "./constants.mjs";
 import { toRadians } from "./utils.mjs";
 
 export default class Camera {
+  // TODO: accept fov in radians to keep everything in radians, for consistency
   /**
-   * @param {{ position: import("./Vector.mjs").default; fovDegrees: number; angle?: number; }}
+   * @param {{ position: Vector; fovDegrees: number; direction: Vector; }}
    */
-  constructor({ position, fovDegrees, angle = 0 }) {
+  constructor({ position, fovDegrees, direction }) {
     this.position = position;
-    this.angle = angle;
+    this.direction = direction;
     this.fov = fovDegrees;
     this.createRays(Screen.WIDTH);
   }
 
+  /**
+   * Creates numRays rays that the camera can later cast out into the world to detect visible objects.
+   * @param {number} numRays 
+   */
   createRays(numRays) {
-    const degreesPerRay = this.fov / (numRays - 1);
-    const rayAngleStart = this.angle - this.fov / 2;
+    const radiansPerRay = toRadians(this.fov / (numRays - 1));
+    const rayAngleStartRadians = this.direction.angle - toRadians(this.fov / 2);
     this.rays = Array.from(
       { length: numRays },
-      (_, index) =>
-        new Ray(this.position, toRadians(rayAngleStart + index * degreesPerRay))
+      (_, index) => {
+        const direction = Vector.fromAngle(rayAngleStartRadians + index * radiansPerRay);
+        return new Ray(this.position, direction);
+      }
     );
   }
 
   /**
-   * Turns the camera by the given angle, in radians.
+   * Rotates this camera by the given change in angle, in radians.
    * @param {number} angleDeltaRadians
    */
-  turnByRadians(angleDeltaRadians) {
-    this.angle += angleDeltaRadians;
-    // TODO: figure out why I have to do -angleDeltaRadians instead of +
-    this.rays.forEach((ray) => ray.setAngle(ray.angle - angleDeltaRadians));
+  rotate(angleDeltaRadians) {
+    this.direction = this.direction.rotated(angleDeltaRadians);
+    // FIXME: Why do I have to do -angleDeltaRadians for this to work as expected?
+    this.rays.forEach((ray) => ray.rotate(-angleDeltaRadians));
   }
 
   /**
@@ -40,7 +48,7 @@ export default class Camera {
   cast(walls) {
     return this.rays.map((ray, index) => {
       let shortestDistance = Infinity;
-      /** @type {(import("./Vector.mjs").default)|undefined} */
+      /** @type {(Vector)|undefined} */
       let closestIntersection;
 
       walls.forEach((wall) => {

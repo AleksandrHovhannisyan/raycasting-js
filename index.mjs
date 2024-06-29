@@ -19,7 +19,7 @@ function Init() {
     position: new Vector(canvas.width / 2, canvas.height / 2),
     speed: 2,
     fovDegrees: 60,
-    angle: 0,
+    direction: new Vector(1, -1),
   });
   walls = createWalls(5, canvas.width, canvas.height);
   document.body.appendChild(canvas.canvas);
@@ -53,10 +53,10 @@ function HandleInput() {
     player.move(player.direction.scaled(-1));
   }
   if (isKeyDown(Input.TURN_LEFT)) {
-    player.turnByRadians(toRadians(-4));
+    player.rotate(toRadians(-4));
   }
   if (isKeyDown(Input.TURN_RIGHT)) {
-    player.turnByRadians(toRadians(4));
+    player.rotate(toRadians(4));
   }
 }
 
