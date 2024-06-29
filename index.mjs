@@ -1,3 +1,4 @@
+import Camera from "./Camera.mjs";
 import Canvas from "./Canvas.mjs";
 import Player from "./Player.mjs";
 import Vector from "./Vector.mjs";
@@ -15,12 +16,16 @@ let walls;
 
 function Init() {
   canvas = new Canvas(Screen.WIDTH, Screen.HEIGHT);
+  const playerPosition = new Vector(canvas.width / 2, canvas.height / 2);
   player = new Player({
-    position: new Vector(canvas.width / 2, canvas.height / 2),
+    position: playerPosition,
     radius: 4,
     speed: 2,
-    fovDegrees: 60,
-    direction: new Vector(1, -1),
+    camera: new Camera({
+      position: playerPosition,
+      direction: new Vector(1, -1),
+      fovDegrees: 60,
+    })
   });
   walls = createWalls(5, canvas.width, canvas.height);
   document.body.appendChild(canvas.canvas);

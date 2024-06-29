@@ -5,19 +5,18 @@ import { clamp } from "./utils.mjs";
 
 export default class Player {
   /**
-   * @param {{ position: Vector; radius: number; speed: number; direction?: Vector; fovDegrees: number }}
+   * @param {{ position: Vector; radius: number; speed: number; camera: Camera; }}
    */
-  constructor({ position, radius, speed = 1, direction, fovDegrees }) {
+  constructor({ position, radius, speed = 1, camera }) {
     this.position = position;
     this.radius = radius;
     this.speed = speed;
-    this.direction = direction.normalized() ?? new Vector(1, 0);
-    // TODO: Maybe the player constructor should accept a camera object already constructed?
-    this.camera = new Camera({
-      position: this.position,
-      direction: this.direction,
-      fovDegrees,
-    });
+    this.camera = camera;
+  }
+
+  /** Returns the direction the player is facing. */
+  get direction() {
+    return this.camera.direction;
   }
 
   /**
@@ -25,7 +24,6 @@ export default class Player {
    * @param {number} angleDeltaRadians
    */
   rotate(angleDeltaRadians) {
-    this.direction = this.direction.rotated(angleDeltaRadians);
     this.camera.rotate(angleDeltaRadians);
   }
 
