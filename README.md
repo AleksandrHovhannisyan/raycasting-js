@@ -10,3 +10,11 @@ Resources/references:
 
 - [Coding Challenge #145: 2D Raycasting ](https://www.youtube.com/watch?v=TOEi6T2mtHo)
 - [Coding Challenge #146: Rendering Raycasting ](https://www.youtube.com/watch?v=vYgIKn7iDH8)
+
+## Running Locally
+
+- Clone the repo.
+- `cd src`
+- `npx serve .`
+
+View the app running at `localhost:3000`.
