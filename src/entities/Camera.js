@@ -1,6 +1,6 @@
-import Ray from "../lib/Ray.mjs";
-import Vector from "../lib/Vector.mjs";
-import { Screen } from "../lib/constants.mjs";
+import Ray from "../lib/Ray.js";
+import Vector from "../lib/Vector.js";
+import { Screen } from "../lib/constants.js";
 
 /**
  * @typedef CameraProps
@@ -49,7 +49,7 @@ export default class Camera {
 
   /**
    *
-   * @param {(import("./Wall.mjs").default)[]} walls
+   * @param {(import("./Wall.js").default)[]} walls
    */
   cast(walls) {
     return this.rays.map((ray, index) => {

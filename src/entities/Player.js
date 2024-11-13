@@ -1,7 +1,7 @@
-import Camera from "./Camera.mjs";
-import Vector from "../lib/Vector.mjs";
-import { Color, Screen } from "../lib/constants.mjs";
-import { clamp } from "../lib/utils.mjs";
+import Camera from "./Camera.js";
+import Vector from "../lib/Vector.js";
+import { Color, Screen } from "../lib/constants.js";
+import { clamp } from "../lib/utils.js";
 
 export default class Player {
   /**
@@ -38,14 +38,14 @@ export default class Player {
   }
 
   /**
-   * @param {(import("./Wall.mjs").default)[]} walls
+   * @param {(import("./Wall.js").default)[]} walls
    */
   see(walls) {
     return this.camera.cast(walls);
   }
 
   /** Draws the player on a canvas.
-   * @param {import("./Canvas.mjs").default} canvas
+   * @param {import("./Canvas.js").default} canvas
    */
   draw(canvas) {
     canvas.circle({

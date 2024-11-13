@@ -1,4 +1,4 @@
-import Vector from "./Vector.mjs";
+import Vector from "./Vector.js";
 
 export default class Ray {
   /**
@@ -22,7 +22,7 @@ export default class Ray {
    * Casts this ray onto the specified wall and returns the intersection point and distance to the intersection, if one is found.
    * https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection#Given_two_points_on_each_line_segment
    * https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/565282#565282
-   * @param {import("../Wall.mjs").default} wall
+   * @param {import("../Wall.js").default} wall
    */
   cast(wall) {
     // Wall, L1

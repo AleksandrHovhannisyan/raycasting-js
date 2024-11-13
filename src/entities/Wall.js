@@ -1,5 +1,5 @@
-import Vector from "../lib/Vector.mjs";
-import { Color, Screen } from "../lib/constants.mjs";
+import Vector from "../lib/Vector.js";
+import { Color, Screen } from "../lib/constants.js";
 
 export default class Wall {
   /**
@@ -13,7 +13,7 @@ export default class Wall {
   }
 
   /** Draws the wall on a canvas.
-   * @param {import("./Canvas.mjs").default} canvas
+   * @param {import("./Canvas.js").default} canvas
    */
   draw(canvas) {
     canvas.line({

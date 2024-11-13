@@ -1,11 +1,11 @@
-import Camera from "./entities/Camera.mjs";
-import Canvas from "./entities/Canvas.mjs";
-import Player from "./entities/Player.mjs";
-import Wall, { createWalls } from "./entities/Wall.mjs";
-import Vector from "./lib/Vector.mjs";
-import { Screen, Color } from "./lib/constants.mjs";
-import { Input, isKeyDown } from "./lib/input.mjs";
-import { toRadians } from "./lib/utils.mjs";
+import Camera from "./entities/Camera.js";
+import Canvas from "./entities/Canvas.js";
+import Player from "./entities/Player.js";
+import Wall, { createWalls } from "./entities/Wall.js";
+import Vector from "./lib/Vector.js";
+import { Screen, Color } from "./lib/constants.js";
+import { Input, isKeyDown } from "./lib/input.js";
+import { toRadians } from "./lib/utils.js";
 
 /** @type {Canvas} */
 let scene2D;
