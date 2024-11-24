@@ -1,14 +1,62 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 body {
   font-family: system-ui;
   line-height: 1.5;
+  font-size: 125%;
+  padding: 1rem;
+  max-width: 832px;
+  margin-inline: auto;
+}
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block: 0.25lh;
+}
+h1 {
+  margin-block: 1lh;
+  line-height: 1.2;
+}
+kbd {
+  background-color: ButtonFace;
+  font-family: monospace;
+  border-radius: 0.25rem;
+  padding: 0.25em 0.5em;
+  box-shadow: 0 1px 2px 0 hsl(0, 0%, 50%);
 }
 input {
   font: inherit;
+  padding: 0.125em 0.25em;
+}
+label {
+  display: block;
+}
+dl {
+  display: grid;
+  gap: 0.25lh;
+}
+dd,
+dt {
+  display: inline;
+  margin: 0;
+}
+footer {
+  margin-block-start: 2lh;
+  text-align: center;
+}
+fieldset {
+  margin-block-start: 1lh;
+  padding: 1rem;
 }
 .flex {
   display: flex;
   flex-wrap: wrap;
 }
-label {
-  display: block;
+.font-weight-bold {
+  font-weight: 700;
 }

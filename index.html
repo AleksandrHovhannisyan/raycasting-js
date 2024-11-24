@@ -11,16 +11,28 @@
   </head>
   <body>
     <h1>2D and 3D Raycasting with JavaScript</h1>
-    <p>Controls</p>
-    <ul>
-      <li>Forward: <kbd>w</kbd></li>
-      <li>Back: <kbd>s</kbd></li>
-      <li>Turn left: <kbd>a</kbd></li>
-      <li>Turn right: <kbd>d</kbd></li>
-    </ul>
+    <p id="controls-label" class="font-weight-bold">Controls</p>
+    <dl aria-labelledby="controls-label">
+      <div>
+        <dt>Move forward: </dt>
+        <dd><kbd>w</kbd></dd>
+      </div>
+      <div>
+        <dt>Move backward: </dt>
+        <dd><kbd>s</kbd></dd>
+      </div>
+      <div>
+        <dt>Turn left: </dt>
+        <dd><kbd>a</kbd></dd>
+      </div>
+      <div>
+        <dt>Turn right: </dt>
+        <dd><kbd>d</kbd></dd>
+      </div>
+    </dl>
     <raycasting-game class="flex" max-fps="60" fov="60"></raycasting-game>
     <fieldset>
-      <legend>Game settings</legend>
+      <legend class="font-weight-bold">Game settings</legend>
       <label>
         Field of view (FOV)
         <input
@@ -51,12 +63,9 @@
         Made by
         <a href="https://www.aleksandrhovhannisyan.com/"
           >Aleksandr Hovhannisyan</a
-        >.
-      </p>
-      <p>
-        <a href="https://github.com/AleksandrHovhannisyan/raycasting-js/"
-          >View source code</a
-        >.
+        >. <a href="https://github.com/AleksandrHovhannisyan/raycasting-js/"
+        >View source on GitHub</a
+      >.
       </p>
     </footer>
   </body>

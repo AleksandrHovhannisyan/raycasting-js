@@ -4,6 +4,7 @@ export default class Canvas {
 
   constructor(width: number, height: number) {
     this.canvas = document.createElement("canvas");
+    this.canvas.style.maxWidth = '100%';
     this.canvas.width = width;
     this.canvas.height = height;
     this.context = this.canvas.getContext("2d")!;
