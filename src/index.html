@@ -10,9 +10,15 @@
         font-family: system-ui;
         line-height: 1.5;
       }
+      input {
+        font: inherit;
+      }
       .flex {
         display: flex;
         flex-wrap: wrap;
+      }
+      label {
+        display: block;
       }
     </style>
   </head>
@@ -26,6 +32,33 @@
       <li>Turn right: <kbd>d</kbd></li>
     </ul>
     <raycasting-game class="flex" max-fps="60" fov="60"></raycasting-game>
+    <fieldset>
+      <legend>Game settings</legend>
+      <label>
+        Field of view (FOV)
+        <input
+          name="fov"
+          type="number"
+          inputmode="decimal"
+          min="1"
+          max="90"
+          value="60"
+          step="1"
+        />
+      </label>
+      <label>
+        Max frames per second (FPS)
+        <input
+          name="max-fps"
+          type="number"
+          inputmode="decimal"
+          min="1"
+          max="240"
+          value="60"
+          step="1"
+        />
+      </label>
+    </fieldset>
     <footer>
       <p>
         Made by

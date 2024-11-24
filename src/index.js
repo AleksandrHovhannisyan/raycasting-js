@@ -19,12 +19,28 @@ class RaycastingGame extends HTMLElement {
   /** @type {{ maxMsPerFrame: number; previousTimeMs: number }} */
   #timing;
 
+  /** HTML attributes the game listens for */
+  static observedAttributes = ["max-fps", "fov"];
+
   constructor() {
     super();
-    const maxFps = Number(this.getAttribute("max-fps")) || 60;
-    this.#timing = { previousTimeMs: 0, maxMsPerFrame: 1000 / maxFps };
+    this.#timing = { previousTimeMs: 0 };
     this.#initializeScene();
     this.run();
+  }
+
+  /**
+   * @param {typeof RaycastingGame.observedAttributes[number]} name
+   * @param {string} oldValue
+   * @param {string} newValue
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "max-fps") {
+      const maxFps = Number(newValue);
+      this.#timing.maxMsPerFrame = 1000 / maxFps;
+    } else if (name === "fov") {
+      this.#player.camera.setFOV(toRadians(Number(newValue)));
+    }
   }
 
   #updatePhysics() {
@@ -50,7 +66,6 @@ class RaycastingGame extends HTMLElement {
       this.#scene2D.width / 2,
       this.#scene2D.height / 2
     );
-    const fovDegrees = Number(this.getAttribute('fov')) || 60;
     this.#player = new Player({
       position: playerPosition,
       radius: 4,
@@ -58,7 +73,6 @@ class RaycastingGame extends HTMLElement {
       camera: new Camera({
         position: playerPosition,
         direction: new Vector(1, -1),
-        fov: toRadians(fovDegrees),
       }),
     });
     this.#walls = createWalls(5, this.#scene2D.width, this.#scene2D.height);
@@ -145,5 +159,12 @@ class RaycastingGame extends HTMLElement {
     });
   }
 }
-
 window.customElements.define("raycasting-game", RaycastingGame);
+
+// Game settings controls
+const game = document.querySelector("raycasting-game");
+document.querySelectorAll("input").forEach((input) => {
+  input.addEventListener("input", (e) => {
+    game.setAttribute(e.target.getAttribute("name"), e.target.value);
+  });
+});

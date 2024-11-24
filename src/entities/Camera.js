@@ -10,24 +10,33 @@ import { Screen } from "../lib/constants.js";
  */
 
 export default class Camera {
+  /** The camera's field of view, in radians */
+  #fov;
+
   /**
    * @param {CameraProps}
    */
   constructor({ position, fov, direction }) {
     this.position = position;
     this.direction = direction;
-    this.fov = fov;
-    this.createRays(Screen.WIDTH);
+    if (fov) {
+      this.setFOV(fov);
+    }
+  }
+  
+  setFOV(fov) {
+    this.#fov = fov;
+    this.#createRays(Screen.WIDTH);
   }
 
   /**
    * Creates numRays rays that the camera can later cast out into the world to detect visible objects.
    * @param {number} numRays 
    */
-  createRays(numRays) {
-    const radiansPerRay = this.fov / (numRays - 1);
+  #createRays(numRays) {
+    const radiansPerRay = this.#fov / (numRays - 1);
     // Start at the leftmost edge of the FOV so it maps correctly to 3D (left to right)
-    const rayAngleStartRadians = this.direction.angle + this.fov / 2;
+    const rayAngleStartRadians = this.direction.angle + this.#fov / 2;
     this.rays = Array.from(
       { length: numRays },
       (_, index) => {
