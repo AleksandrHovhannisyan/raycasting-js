@@ -11,7 +11,7 @@ export default class Vector {
 
   /** Returns this vector's angle, in radians. */
   get angle() {
-    return -Math.atan2(this.y, this.x);
+    return Math.atan2(this.y, this.x);
   }
 
   /**

@@ -52,8 +52,7 @@ export default class Camera {
    */
   rotate(angleDeltaRadians) {
     this.direction = this.direction.rotated(angleDeltaRadians);
-    // FIXME: Why do I have to do -angleDeltaRadians for this to work as expected?
-    this.rays.forEach((ray) => ray.rotate(-angleDeltaRadians));
+    this.rays.forEach((ray) => ray.rotate(angleDeltaRadians));
   }
 
   /**
@@ -69,7 +68,7 @@ export default class Camera {
       walls.forEach((wall) => {
         const result = ray.cast(wall);
         if (result) {
-          const { intersection, distance } = result;
+          let { intersection, distance } = result;
 
           if (distance < shortestDistance) {
             shortestDistance = distance;

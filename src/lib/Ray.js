@@ -35,7 +35,7 @@ export default class Ray {
     const x3 = this.position.x;
     const y3 = this.position.y;
     const x4 = this.position.x + this.direction.x;
-    const y4 = this.position.y - this.direction.y;
+    const y4 = this.position.y + this.direction.y;
 
     // Zero implies the two lines are parallel and never intersect
     const denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
@@ -47,7 +47,7 @@ export default class Ray {
     const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denominator;
     const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / denominator;
 
-    if (t >= 0 && t <= 1 && u >= 0) {
+    if (t > 0 && t < 1 && u > 0) {
       const intersection = new Vector();
       intersection.x = x1 + t * (x2 - x1);
       intersection.y = y1 + t * (y2 - y1);
