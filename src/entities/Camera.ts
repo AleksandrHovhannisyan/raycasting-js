@@ -1,42 +1,46 @@
-import Ray from "../lib/Ray.js";
-import Vector from "../lib/Vector.js";
-import { Screen } from "../lib/constants.js";
+import type Wall from './Wall.ts';
+import Ray from "../lib/Ray.ts";
+import Vector from "../lib/Vector.ts";
+import { Screen } from "../lib/constants.ts";
 
-/**
- * @typedef CameraProps
- * @property {Vector} position The camera's position in world coordinates.
- * @property {number} fov The field of view, in radians.
- * @property {Vector} direction The direction the camera is facing.
- */
+type CameraProps = {
+  /** The camera's position in world coordinates. */
+  position: Vector;
+  /** The field of view, in radians. */
+  fov?: number;
+  /** The direction the camera is facing. */
+  direction: Vector;
+}
 
 export default class Camera {
   /** The camera's field of view, in radians */
-  #fov;
+  private fovRadians: number;
+  private rays: Ray[];
+  public position: Vector;
+  public direction: Vector;
 
-  /**
-   * @param {CameraProps}
-   */
-  constructor({ position, fov, direction }) {
+  constructor({ position, fov, direction }: CameraProps) {
+    this.fovRadians = 0;
     this.position = position;
     this.direction = direction;
+    this.rays = [];
     if (fov) {
       this.setFOV(fov);
     }
   }
   
-  setFOV(fov) {
-    this.#fov = fov;
-    this.#createRays(Screen.WIDTH);
+  setFOV(fovRadians: number) {
+    this.fovRadians = fovRadians;
+    this.createRays(Screen.WIDTH);
   }
 
   /**
    * Creates numRays rays that the camera can later cast out into the world to detect visible objects.
-   * @param {number} numRays 
    */
-  #createRays(numRays) {
-    const radiansPerRay = this.#fov / (numRays - 1);
+  private createRays(numRays: number) {
+    const radiansPerRay = this.fovRadians / (numRays - 1);
     // Start at the leftmost edge of the FOV so it maps correctly to 3D (left to right)
-    const rayAngleStartRadians = this.direction.angle + this.#fov / 2;
+    const rayAngleStartRadians = this.direction.angle + this.fovRadians / 2;
     this.rays = Array.from(
       { length: numRays },
       (_, index) => {
@@ -48,22 +52,17 @@ export default class Camera {
 
   /**
    * Rotates this camera by the given change in angle, in radians.
-   * @param {number} angleDeltaRadians
    */
-  rotate(angleDeltaRadians) {
+  rotate(angleDeltaRadians: number) {
     this.direction = this.direction.rotated(angleDeltaRadians);
     this.rays.forEach((ray) => ray.rotate(angleDeltaRadians));
   }
 
-  /**
-   *
-   * @param {(import("./Wall.js").default)[]} walls
-   */
-  cast(walls) {
+  /** Casts its rays onto the walls/environment. */
+  cast(walls: Wall[]) {
     return this.rays.map((ray) => {
       let shortestDistance = Infinity;
-      /** @type {(Vector)|undefined} */
-      let closestIntersection;
+      let closestIntersection: Vector | undefined;
 
       walls.forEach((wall) => {
         const result = ray.cast(wall);

@@ -1,21 +1,19 @@
-import Vector from "../lib/Vector.js";
-import { Color, Screen } from "../lib/constants.js";
+import Vector from "../lib/Vector.ts";
+import { Color, Screen } from "../lib/constants.ts";
+import Canvas from "../lib/Canvas.ts";
 
 export default class Wall {
-  /**
-   * 
-   * @param {Vector} start 
-   * @param {Vector} end 
-   */
-  constructor(start, end) {
+  public start: Vector;
+  public end: Vector;
+
+  constructor(start: Vector, end: Vector) {
     this.start = start;
     this.end = end;
   }
 
   /** Draws the wall on a canvas.
-   * @param {import("./Canvas.js").default} canvas
    */
-  draw(canvas) {
+  draw(canvas: Canvas) {
     canvas.line({
       x1: this.start.x,
       y1: this.start.y,
@@ -28,12 +26,8 @@ export default class Wall {
 
 /**
  * Creates and returns randomly generated walls within the given canvas bounds.
- * @param {number} numWalls
- * @param {number} canvasWidth 
- * @param {number} canvasHeight 
- * @returns 
  */
-export const createWalls = (numWalls, canvasWidth, canvasHeight) => {
+export const createWalls = (numWalls: number, canvasWidth: number, canvasHeight: number) => {
   const walls = Array.from({ length: numWalls }, () => {
     const x1 = Math.random() * canvasWidth;
     const y1 = Math.random() * canvasHeight;

@@ -1,0 +1,10 @@
+[build]
+  base = "."
+  publish = "dist/"
+  command = "pnpm build"
+
+[dev]
+  command = "pnpm dev"
+  port = 8888
+  publish = "dist/"
+

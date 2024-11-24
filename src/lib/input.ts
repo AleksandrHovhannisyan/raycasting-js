@@ -1,15 +1,12 @@
 const makeGlobalKeyDownListener = () => {
-  const heldKeys = new Set();
+  const heldKeys = new Set<string>();
 
   document.addEventListener("keydown", (e) => heldKeys.add(e.key));
   document.addEventListener("keyup", (e) => heldKeys.delete(e.key));
 
-  /**
-   * @param {string} key
-   */
-  const isKeyDown = (key) => heldKeys.has(key);
-
-  return isKeyDown;
+  return function isKeyDown(key: string) {
+    return heldKeys.has(key);
+  }
 };
 
 /** Returns true if the given key is currently being held down. */

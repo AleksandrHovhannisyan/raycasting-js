@@ -1,4 +1,7 @@
 export default class Vector {
+  public x: number;
+  public y: number;
+
   constructor(x = 0, y = 0) {
     this.x = x;
     this.y = y;
@@ -14,10 +17,8 @@ export default class Vector {
     return Math.atan2(this.y, this.x);
   }
 
-  /**
-   * @param {number} scalar 
-   */
-  scaled(scalar) {
+  /** Returns a new vector that's the result of scaling this vector by the given scalar. */
+  scaled(scalar: number) {
     const scaled = new Vector(this.x, this.y);
     scaled.x *= scalar;
     scaled.y *= scalar;
@@ -31,9 +32,8 @@ export default class Vector {
   }
 
   /** Returns a new vector that's the result of rotating this vector by the given change in angle, in radians.
-   * @param {number} angleDeltaRadians
   */
-  rotated(angleDeltaRadians) {
+  rotated(angleDeltaRadians: number) {
     const rotated = new Vector(this.x, this.y);
     rotated.x = this.x * Math.cos(angleDeltaRadians) - this.y * Math.sin(angleDeltaRadians);
     rotated.y = this.x * Math.sin(angleDeltaRadians) + this.y * Math.cos(angleDeltaRadians);
@@ -42,9 +42,8 @@ export default class Vector {
   
   /**
    * Returns a new vector constructed from the given angle.
-   * @param {number} angleRadians
    */
-  static fromAngle(angleRadians) {
+  static fromAngle(angleRadians: number) {
     const vector = new Vector();
     vector.x = Math.cos(angleRadians);
     vector.y = Math.sin(angleRadians);
@@ -53,10 +52,8 @@ export default class Vector {
 
   /**
    * Returns the dot product of two vectors.
-   * @param {Vector} a 
-   * @param {Vector} b 
    */
-  static dot(a, b) {
+  static dot(a: Vector, b: Vector) {
     return a.x * b.x + a.y * b.y;
   }
 }

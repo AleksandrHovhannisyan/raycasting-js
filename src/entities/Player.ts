@@ -1,13 +1,17 @@
-import Camera from "./Camera.js";
-import Vector from "../lib/Vector.js";
-import { Color, Screen } from "../lib/constants.js";
-import { clamp } from "../lib/utils.js";
+import Camera from "./Camera.ts";
+import type Wall from './Wall.ts'
+import type Canvas from '../lib/Canvas.ts';
+import Vector from "../lib/Vector.ts";
+import { Color, Screen } from "../lib/constants.ts";
+import { clamp } from "../lib/utils.ts";
 
 export default class Player {
-  /**
-   * @param {{ position: Vector; radius: number; speed: number; camera: Camera; }}
-   */
-  constructor({ position, radius, speed = 1, camera }) {
+  public position: Vector;
+  public radius: number;
+  public speed: number;
+  public camera: Camera;
+
+  constructor({ position, radius, speed = 1, camera }: { position: Vector, radius: number, speed: number, camera: Camera }) {
     this.position = position;
     this.radius = radius;
     this.speed = speed;
@@ -21,33 +25,27 @@ export default class Player {
 
   /**
    * Rotates this player by the given change in angle, in radians.
-   * @param {number} angleDeltaRadians
    */
-  rotate(angleDeltaRadians) {
+  rotate(angleDeltaRadians: number) {
     this.camera.rotate(angleDeltaRadians);
   }
 
   /** Moves the player at its current speed in the the specified direction.
-   * @param {Vector} direction
    */
-  move(direction) {
+  move(direction: Vector) {
     this.position.x += direction.x * this.speed;
     this.position.y += direction.y * this.speed;
     this.position.x = clamp({ value: this.position.x, min: this.radius, max: Screen.WIDTH - this.radius });
     this.position.y = clamp({ value: this.position.y, min: this.radius, max: Screen.HEIGHT - this.radius });
   }
 
-  /**
-   * @param {(import("./Wall.js").default)[]} walls
-   */
-  see(walls) {
+  see(walls: Wall[]) {
     return this.camera.cast(walls);
   }
 
   /** Draws the player on a canvas.
-   * @param {import("./Canvas.js").default} canvas
    */
-  draw(canvas) {
+  draw(canvas: Canvas) {
     canvas.circle({
       x: this.position.x,
       y: this.position.y,

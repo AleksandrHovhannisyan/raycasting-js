@@ -1,20 +1,19 @@
-import Vector from "./Vector.js";
+import Wall from "../entities/Wall.ts";
+import Vector from "./Vector.ts";
 
 export default class Ray {
-  /**
-   * @param {Vector} position 
-   * @param {Vector} direction 
-   */
-  constructor(position, direction) {
+  public position: Vector;
+  public direction: Vector;
+
+  constructor(position: Vector, direction: Vector) {
     this.position = position;
     this.direction = direction
   }
 
   /**
    * Rotates this ray by the given change in angle, in radians.
-   * @param {number} angleRadians 
    */
-  rotate(angleDeltaRadians) {
+  rotate(angleDeltaRadians: number) {
     this.direction = this.direction.rotated(angleDeltaRadians);
   }
 
@@ -22,9 +21,8 @@ export default class Ray {
    * Casts this ray onto the specified wall and returns the intersection point and distance to the intersection, if one is found.
    * https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection#Given_two_points_on_each_line_segment
    * https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/565282#565282
-   * @param {import("../Wall.js").default} wall
    */
-  cast(wall) {
+  cast(wall: Wall) {
     // Wall, L1
     const x1 = wall.start.x;
     const y1 = wall.start.y;
