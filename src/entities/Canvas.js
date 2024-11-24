@@ -1,4 +1,3 @@
-// TODO: use custom element
 export default class Canvas {
   /**
    * @param {number} width
