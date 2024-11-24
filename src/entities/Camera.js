@@ -60,7 +60,7 @@ export default class Camera {
    * @param {(import("./Wall.js").default)[]} walls
    */
   cast(walls) {
-    return this.rays.map((ray, index) => {
+    return this.rays.map((ray) => {
       let shortestDistance = Infinity;
       /** @type {(Vector)|undefined} */
       let closestIntersection;
@@ -69,6 +69,9 @@ export default class Camera {
         const result = ray.cast(wall);
         if (result) {
           let { intersection, distance } = result;
+          // Get projection of the distance onto the camera's directional plane to eliminate Fish Eye effect. 
+          // https://youtu.be/vYgIKn7iDH8?feature=shared&t=1464
+          distance *= Vector.dot(this.direction, ray.direction) / (this.direction.length * ray.direction.length);
 
           if (distance < shortestDistance) {
             shortestDistance = distance;

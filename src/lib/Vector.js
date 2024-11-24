@@ -50,4 +50,13 @@ export default class Vector {
     vector.y = Math.sin(angleRadians);
     return vector;
   }
+
+  /**
+   * Returns the dot product of two vectors.
+   * @param {Vector} a 
+   * @param {Vector} b 
+   */
+  static dot(a, b) {
+    return a.x * b.x + a.y * b.y;
+  }
 }
