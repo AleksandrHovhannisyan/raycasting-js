@@ -21,9 +21,7 @@ class RaycastingGame extends HTMLElement {
 
   constructor() {
     super();
-    const maxFps = this.getAttribute("max-fps")
-      ? Number(this.getAttribute("max-fps"))
-      : 60;
+    const maxFps = Number(this.getAttribute("max-fps")) || 60;
     this.#timing = { previousTimeMs: 0, maxMsPerFrame: 1000 / maxFps };
     this.#initializeScene();
     this.run();
@@ -52,6 +50,7 @@ class RaycastingGame extends HTMLElement {
       this.#scene2D.width / 2,
       this.#scene2D.height / 2
     );
+    const fovDegrees = Number(this.getAttribute('fov')) || 60;
     this.#player = new Player({
       position: playerPosition,
       radius: 4,
@@ -59,7 +58,7 @@ class RaycastingGame extends HTMLElement {
       camera: new Camera({
         position: playerPosition,
         direction: new Vector(1, -1),
-        fov: toRadians(60),
+        fov: toRadians(fovDegrees),
       }),
     });
     this.#walls = createWalls(5, this.#scene2D.width, this.#scene2D.height);
