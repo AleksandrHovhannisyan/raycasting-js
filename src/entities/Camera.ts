@@ -38,7 +38,7 @@ export default class Camera {
    * Creates numRays rays that the camera can later cast out into the world to detect visible objects.
    */
   private createRays(numRays: number) {
-    const radiansPerRay = this.fovRadians / (numRays - 1);
+    const radiansPerRay = this.fovRadians / numRays;
     const rayAngleStartRadians = this.direction.angle - this.fovRadians / 2;
     this.rays = Array.from(
       { length: numRays },
