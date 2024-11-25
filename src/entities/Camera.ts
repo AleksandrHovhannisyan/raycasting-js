@@ -39,12 +39,11 @@ export default class Camera {
    */
   private createRays(numRays: number) {
     const radiansPerRay = this.fovRadians / (numRays - 1);
-    // Start at the leftmost edge of the FOV so it maps correctly to 3D (left to right)
-    const rayAngleStartRadians = this.direction.angle + this.fovRadians / 2;
+    const rayAngleStartRadians = this.direction.angle - this.fovRadians / 2;
     this.rays = Array.from(
       { length: numRays },
       (_, index) => {
-        const direction = Vector.fromAngle(rayAngleStartRadians - index * radiansPerRay);
+        const direction = Vector.fromAngle(rayAngleStartRadians + index * radiansPerRay);
         return new Ray(this.position, direction);
       }
     );
