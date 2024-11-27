@@ -18,14 +18,9 @@ export default class Canvas {
     return this.canvas.height;
   }
 
-  /** Clears all drawings from the canvas. */
-  clear() {
-    this.context.clearRect(0, 0, this.width, this.height);
-  }
-
-  /** Fills the canvas with a solid color.
+  /** Clears the canvas with a solid color.
    */
-  fill(color: string) {
+  clear(color: string) {
     this.context.fillStyle = color;
     this.context.fillRect(0, 0, this.width, this.height);
   }

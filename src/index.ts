@@ -88,10 +88,8 @@ class RaycastingGame extends HTMLElement {
   }
 
   private draw() {
-    this.scene2D.clear();
-    this.scene3D.clear();
-    this.scene2D.fill(Color.WHITE);
-    this.scene3D.fill(Color.BLACK);
+    this.scene2D.clear(Color.WHITE);
+    this.scene3D.clear(Color.BLACK);
 
     const scene = this.player.see(this.walls);
     scene.forEach(({ intersection, distance }, xCoordinate) => {
