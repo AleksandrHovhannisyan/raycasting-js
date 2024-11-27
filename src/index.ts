@@ -105,20 +105,16 @@ class RaycastingGame extends HTMLElement {
           color: Color.YELLOW,
         });
         // 3D: at this vertical slice of the screen, draw a scaled line representing that wall
-        const height = (this.scene3D.height / distance) * 75; // FIXME: arbitrary constant of 75
-        const y1 = (this.scene3D.height - height) / 2;
-        const y2 = y1 + height;
+        const lineHeight = (this.scene3D.height / distance) * 75; // FIXME: arbitrary constant of 75
+        const y1 = (this.scene3D.height - lineHeight) / 2;
+        const y2 = y1 + lineHeight;
         this.scene3D.line({
           x1: xCoordinate,
           y1,
           x2: xCoordinate,
           y2,
-          // FIXME: is there a better way of interpolating the color here?
-          // Basic idea: further away = darker. Closer = lighter. Max distance is this.scene3D.height (minus a few pixels maybe for the walls). So at that distance,
-          // the lightness should be < 100%. Hence divide this.scene3D.height by distance scaled by some arbitrary multiplier.
-          color: `hsl(0, 0%, ${
-            (this.scene3D.height / (distance * 1.2)) * 100
-          }%)`,
+          // Further away = darker (closer to min %). Closer = lighter (closer to max %). Clamp between 10% and 100%.
+          color: `hsl(0, 0%, ${Math.max(10, Math.min((lineHeight  / distance) * 100, 100))}%)`,
         });
       }
     });
