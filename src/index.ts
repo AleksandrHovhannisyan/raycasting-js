@@ -140,7 +140,8 @@ class RaycastingGame extends HTMLElement {
         // Update all physics (e.g., player movement)
         this.updatePhysics();
       }
-      // It's okay to draw/paint at the native refresh rate
+      // It's okay (and even desirable) to draw/paint at the native refresh rate, as long as the draw()
+      // logic is performant enough to run at the native refresh rate without significant frame drops.
       this.draw();
       this.run();
     });
